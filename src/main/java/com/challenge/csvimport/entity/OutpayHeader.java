@@ -1,4 +1,4 @@
-package com.challange.csvimport.entity;
+package com.challenge.csvimport.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -14,6 +14,7 @@ import java.util.Date;
 @Entity
 @Table(schema = "DBO", name = "OUTPAY_HEADER")
 public class OutpayHeader {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Outpay_Header_ID")

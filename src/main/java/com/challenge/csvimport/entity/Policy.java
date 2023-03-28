@@ -1,4 +1,4 @@
-package com.challange.csvimport.entity;
+package com.challenge.csvimport.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -12,6 +12,7 @@ import lombok.Setter;
 @Entity
 @Table(schema = "DBO", name = "POLICY")
 public class Policy {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")

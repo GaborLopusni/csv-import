@@ -1,4 +1,4 @@
-package com.challange.csvimport.entity;
+package com.challenge.csvimport.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -11,6 +11,7 @@ import lombok.Setter;
 @EqualsAndHashCode
 @Embeddable
 public class Client {
+
     @Column(name = "Clntnum")
     @NotNull
     private String clntNum;

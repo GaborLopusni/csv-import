@@ -1,4 +1,4 @@
-package com.challange.csvimport;
+package com.challenge.csvimport;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

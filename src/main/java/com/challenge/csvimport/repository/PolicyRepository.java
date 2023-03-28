@@ -1,6 +1,6 @@
-package com.challange.csvimport.repository;
+package com.challenge.csvimport.repository;
 
-import com.challange.csvimport.entity.Policy;
+import com.challenge.csvimport.entity.Policy;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

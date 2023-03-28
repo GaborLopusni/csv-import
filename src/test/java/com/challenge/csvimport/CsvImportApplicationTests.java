@@ -1,4 +1,4 @@
-package com.challange.csvimport;
+package com.challenge.csvimport;
 
 class CsvImportApplicationTests {
 

@@ -1,4 +1,4 @@
-package com.challange.csvimport.entity;
+package com.challenge.csvimport.entity;
 
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
@@ -13,6 +13,7 @@ import java.util.Date;
 @Entity
 @Table(schema = "DBO", name = "SUR_VALUES")
 public class Redemption {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Outpay_Header_ID")
