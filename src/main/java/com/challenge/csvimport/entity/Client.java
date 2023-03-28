@@ -1,6 +1,7 @@
 package com.challenge.csvimport.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -11,6 +12,15 @@ import lombok.Setter;
 @EqualsAndHashCode
 @Embeddable
 public class Client {
+
+    public Client() {
+    }
+
+    public Client(String clntNum, String clntName, String clntAddress) {
+        this.clntNum = clntNum;
+        this.clntName = clntName;
+        this.clntAddress = clntAddress;
+    }
 
     @Column(name = "Clntnum")
     @NotNull

@@ -14,6 +14,17 @@ import java.util.Date;
 @Table(schema = "DBO", name = "SUR_VALUES")
 public class Redemption {
 
+    public Redemption() {
+    }
+
+    public Redemption(String chdrNum, double surValue, String company, String currency, Date validDate) {
+        this.chdrNum = chdrNum;
+        this.surValue = surValue;
+        this.company = company;
+        this.currency = currency;
+        this.validDate = validDate;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Outpay_Header_ID")

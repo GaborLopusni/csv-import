@@ -15,6 +15,31 @@ import java.util.Date;
 @Table(schema = "DBO", name = "OUTPAY_HEADER")
 public class OutpayHeader {
 
+    public OutpayHeader() {
+    }
+
+    public OutpayHeader(String chdrNum, String letterType, Date printDate, String dataId, Client client, String regDate, double benPercent, String role1, String role2, String cownNum, String cownName, String notice01, String notice02, String notice03, String notice04, String notice05, String notice06, String claimId, Date tpToProcessDate) {
+        this.chdrNum = chdrNum;
+        this.letterType = letterType;
+        this.printDate = printDate;
+        this.dataId = dataId;
+        this.client = client;
+        this.regDate = regDate;
+        this.benPercent = benPercent;
+        this.role1 = role1;
+        this.role2 = role2;
+        this.cownNum = cownNum;
+        this.cownName = cownName;
+        this.notice01 = notice01;
+        this.notice02 = notice02;
+        this.notice03 = notice03;
+        this.notice04 = notice04;
+        this.notice05 = notice05;
+        this.notice06 = notice06;
+        this.claimId = claimId;
+        TpToProcessDate = tpToProcessDate;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Outpay_Header_ID")
