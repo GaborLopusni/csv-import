@@ -1,14 +1,12 @@
 package com.challange.csvimport;
 
-import com.challange.csvimport.configuration.ApplicationConfiguration;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@SpringBootApplication
 public class CsvImportApplication {
 
     public static void main(String[] args) {
-		try (var context = new AnnotationConfigApplicationContext(ApplicationConfiguration.class)) {
-
-		}
+        SpringApplication.run(CsvImportApplication.class, args);
     }
-
 }
