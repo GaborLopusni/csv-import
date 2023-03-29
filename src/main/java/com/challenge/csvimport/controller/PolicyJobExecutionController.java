@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("/api/job/import")
 @ResponseBody
 @Slf4j
-public class JobExecutionController {
+public class PolicyJobExecutionController {
 
     @Autowired
     private ImportService policyImportService;

@@ -14,7 +14,7 @@ public class ExceptionHandlingControllerAdvice {
     public ProblemDetail handleRuntimeException(RuntimeException e) {
         var problemDetail = ProblemDetail.forStatus(HttpStatusCode.valueOf(400));
         problemDetail.setDetail(e.getMessage());
-        log.info(e.getMessage());
+        log.error("Error: {}", e.getMessage());
         return problemDetail;
     }
 }
