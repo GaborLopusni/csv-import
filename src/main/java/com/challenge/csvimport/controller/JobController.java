@@ -2,27 +2,28 @@ package com.challenge.csvimport.controller;
 
 import com.challenge.csvimport.service.ImportService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/job/import")
-@ResponseBody
-@Slf4j
-public class PolicyJobExecutionController {
 
-    @Autowired
-    private ImportService policyImportService;
+@Slf4j
+public abstract class JobController {
+
+    private final ImportService importService;
+
+    public JobController(ImportService importService) {
+        this.importService = importService;
+    }
 
     @PostMapping
-    public ResponseEntity<List<String>> executeImport(@RequestParam("files") MultipartFile[] files) {
+    public ResponseEntity<List<String>> executeJob(@RequestParam("files") MultipartFile[] files) {
         Assert.state(
                 Arrays.stream(files).noneMatch(multipartFile -> multipartFile.getName().isBlank()),
                 "The file cannot be empty in the request body.");
@@ -32,7 +33,7 @@ public class PolicyJobExecutionController {
 
         Arrays.stream(files).map(MultipartFile::getResource).forEach(resource -> {
                     try {
-                        policyImportService.executeImport(resource);
+                        importService.executeImport(resource);
                     } catch (Exception e) {
                         log.error("Import for resource: {} has failed: {}", resource.getFilename(), e.getMessage());
                         throw new RuntimeException("Import has failed");

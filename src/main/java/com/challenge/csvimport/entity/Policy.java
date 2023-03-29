@@ -12,19 +12,6 @@ import lombok.Setter;
 @Entity
 @Table(schema = "DBO", name = "POLICY")
 public class Policy {
-    public Policy() {
-    }
-
-    public Policy(String chdrNum, String cownNum, String ownerName, String lifcNum, String lifcName, String aaraCde, String agntNum, String mailAddress) {
-        this.chdrNum = chdrNum;
-        this.cownNum = cownNum;
-        this.ownerName = ownerName;
-        this.lifcNum = lifcNum;
-        this.lifcName = lifcName;
-        this.aaraCde = aaraCde;
-        this.agntNum = agntNum;
-        this.mailAddress = mailAddress;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,4 +43,18 @@ public class Policy {
 
     @Column(name = "MailAddress")
     private String mailAddress;
+
+    public Policy() {
+    }
+
+    public Policy(String chdrNum, String cownNum, String ownerName, String lifcNum, String lifcName, String aaraCde, String agntNum, String mailAddress) {
+        this.chdrNum = chdrNum;
+        this.cownNum = cownNum;
+        this.ownerName = ownerName;
+        this.lifcNum = lifcNum;
+        this.lifcName = lifcName;
+        this.aaraCde = aaraCde;
+        this.agntNum = agntNum;
+        this.mailAddress = mailAddress;
+    }
 }

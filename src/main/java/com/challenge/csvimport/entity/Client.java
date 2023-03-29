@@ -13,15 +13,6 @@ import lombok.Setter;
 @Embeddable
 public class Client {
 
-    public Client() {
-    }
-
-    public Client(String clntNum, String clntName, String clntAddress) {
-        this.clntNum = clntNum;
-        this.clntName = clntName;
-        this.clntAddress = clntAddress;
-    }
-
     @Column(name = "Clntnum")
     @NotNull
     private String clntNum;
@@ -31,4 +22,13 @@ public class Client {
 
     @Column(name = "ClntAddress")
     private String clntAddress;
+
+    public Client() {
+    }
+
+    public Client(String clntNum, String clntName, String clntAddress) {
+        this.clntNum = clntNum;
+        this.clntName = clntName;
+        this.clntAddress = clntAddress;
+    }
 }

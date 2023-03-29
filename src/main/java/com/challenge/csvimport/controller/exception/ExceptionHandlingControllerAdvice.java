@@ -1,4 +1,4 @@
-package com.challenge.csvimport.controller;
+package com.challenge.csvimport.controller.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatusCode;
