@@ -3,14 +3,15 @@ package com.challenge.csvimport.controller.exception;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-@ControllerAdvice
+@RestControllerAdvice
 @Slf4j
-public class ExceptionHandlingControllerAdvice {
+public class ExceptionHandlingControllerAdvice extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler
+    @ExceptionHandler(RuntimeException.class)
     public ProblemDetail handleRuntimeException(RuntimeException e) {
         var problemDetail = ProblemDetail.forStatus(HttpStatusCode.valueOf(400));
         problemDetail.setDetail(e.getMessage());

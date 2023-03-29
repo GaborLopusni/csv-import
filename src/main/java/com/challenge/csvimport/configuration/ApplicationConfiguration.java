@@ -31,6 +31,39 @@ public class ApplicationConfiguration {
     @Value("${import.policy.delimiter}")
     private String policyDelimiter;
 
+    @Value("${import.outpay.delimiter}")
+    private String outpayHeaderDelimiter;
+
+    @Value("${import.redemption.delimiter}")
+    private String redemptionDelimiter;
+
+    @Bean
+    public DelimitedLineTokenizer policyDelimitedLineTokenizer() {
+        return new DelimitedLineTokenizerBuilder()
+                .withDelimiter(policyDelimiter)
+                .withEntityColumns(EntityFieldHelper.getFields(Policy.class))
+                .withStrict(false)
+                .build();
+    }
+
+    @Bean
+    public DelimitedLineTokenizer outpayHeaderDelimitedLineTokenizer() {
+        return new DelimitedLineTokenizerBuilder()
+                .withDelimiter(outpayHeaderDelimiter)
+                .withEntityColumns(EntityFieldHelper.getFields(OutpayHeader.class))
+                .withStrict(false)
+                .build();
+    }
+
+    @Bean
+    public DelimitedLineTokenizer redemptionDelimitedLineTokenizer() {
+        return new DelimitedLineTokenizerBuilder()
+                .withDelimiter(redemptionDelimiter)
+                .withEntityColumns(EntityFieldHelper.getFields(Redemption.class))
+                .withStrict(false)
+                .build();
+    }
+
     @Bean
     public LineMapper<Policy> policyLineMapper(DelimitedLineTokenizer policyDelimitedLineTokenizer) {
         return new LineMapper<>(Policy.class, policyDelimitedLineTokenizer);
@@ -42,8 +75,8 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    public LineMapper<OutpayHeader> outpayHeaderLineMapper(DelimitedLineTokenizer outpayHeaderLineTokenizer) {
-        return new LineMapper<>(OutpayHeader.class, outpayHeaderLineTokenizer);
+    public LineMapper<OutpayHeader> outpayHeaderLineMapper(DelimitedLineTokenizer outpayHeaderDelimitedLineTokenizer) {
+        return new LineMapper<>(OutpayHeader.class, outpayHeaderDelimitedLineTokenizer);
     }
 
     @Bean
@@ -59,15 +92,6 @@ public class ApplicationConfiguration {
     @Bean
     public CustomFlatFileItemReader<OutpayHeader> outpayHeaderFlatFileItemReader(DefaultLineMapper<OutpayHeader> outpayHeaderLineMapper) {
         return new CustomFlatFileItemReader<>(outpayHeaderLineMapper, StandardCharsets.ISO_8859_1);
-    }
-
-    @Bean
-    public DelimitedLineTokenizer policyDelimitedLineTokenizer() {
-        return new DelimitedLineTokenizerBuilder()
-                .withDelimiter(policyDelimiter)
-                .withEntityColumns(EntityFieldHelper.getFields(Policy.class))
-                .withStrict(false)
-                .build();
     }
 
     @Bean

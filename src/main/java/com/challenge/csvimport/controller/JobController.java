@@ -2,6 +2,7 @@ package com.challenge.csvimport.controller;
 
 import com.challenge.csvimport.service.ImportService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.batch.item.file.FlatFileParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
@@ -34,12 +35,14 @@ public abstract class JobController {
         Arrays.stream(files).map(MultipartFile::getResource).forEach(resource -> {
                     try {
                         importService.executeImport(resource);
+                    } catch (FlatFileParseException flatFileParseException) {
+                        log.error("Import for resource: {} has failed, file could not be parsed.", resource.getFilename(), flatFileParseException);
+                        throw new RuntimeException("Import for resource: {} has failed, file could not be parsed.");
                     } catch (Exception e) {
-                        log.error("Import for resource: {} has failed: {}", resource.getFilename(), e.getMessage());
+                        log.error("Import for resource: {} has failed: {}.", resource.getFilename(), e.getMessage());
                         throw new RuntimeException("Import has failed");
                     }
                 }
-
         );
 
         return new ResponseEntity<>(fileNames, HttpStatus.OK);

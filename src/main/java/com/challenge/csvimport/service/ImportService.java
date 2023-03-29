@@ -7,5 +7,5 @@ import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.core.io.Resource;
 
 public interface ImportService {
-    void executeImport(Resource resource) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobRestartException, JobParametersInvalidException;
+    void executeImport(Resource resource) throws Exception;
 }

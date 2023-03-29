@@ -2,8 +2,8 @@ package com.challenge.csvimport.job;
 
 import com.challenge.csvimport.job.reader.CustomFlatFileItemReader;
 import com.challenge.csvimport.job.writer.JpaItemWriter;
-import org.springframework.batch.core.JobParameters;
-import org.springframework.batch.core.JobParametersInvalidException;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.batch.core.*;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.transaction.PlatformTransactionManager;
 
-
+@Slf4j
 public class ImportJobRunner<T> implements JobRunner {
 
     @Autowired
@@ -38,8 +38,9 @@ public class ImportJobRunner<T> implements JobRunner {
     }
 
     @Override
-    public void run(Resource resource) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobRestartException, JobParametersInvalidException {
+    public void run(Resource resource) throws Exception {
         flatFileItemReader.setResource(resource);
+
         var fileName = resource.getFilename() != null ? resource.getFilename() : "unknown";
 
         var step = new StepBuilder("import-step", jobRepository)
@@ -54,6 +55,10 @@ public class ImportJobRunner<T> implements JobRunner {
                 .incrementer(new RunIdIncrementer())
                 .build();
 
-        jobLauncher.run(job, new JobParameters());
+        var jobExecution = jobLauncher.run(job, new JobParameters());
+
+        if (jobExecution.getStatus() == BatchStatus.FAILED) {
+            throw (Exception) jobExecution.getAllFailureExceptions().get(0);
+        }
     }
 }

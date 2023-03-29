@@ -9,5 +9,5 @@ import org.springframework.core.io.Resource;
 
 public interface JobRunner {
 
-    void run(Resource resource) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobRestartException, JobParametersInvalidException;
+    void run(Resource resource) throws Exception;
 }
