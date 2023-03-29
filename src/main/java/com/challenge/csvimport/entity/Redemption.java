@@ -11,7 +11,7 @@ import java.util.Date;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(schema = "DBO", name = "SUR_VALUES")
+@Table(name = "SurValues")
 public class Redemption {
 
     @Id
