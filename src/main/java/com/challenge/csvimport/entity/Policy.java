@@ -3,18 +3,15 @@ package com.challenge.csvimport.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
+
 @EqualsAndHashCode
 @Entity
-@Table(schema = "DBO", name = "POLICY")
+@Table(schema = "dbo", name = "Policy")
 public class Policy {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dbo.seq_Policy")
     @Column(name = "ID")
     private Long id;
 
@@ -47,7 +44,8 @@ public class Policy {
     public Policy() {
     }
 
-    public Policy(String chdrNum, String cownNum, String ownerName, String lifcNum, String lifcName, String aaraCde, String agntNum, String mailAddress) {
+    public Policy(Long id, String chdrNum, String cownNum, String ownerName, String lifcNum, String lifcName, String aaraCde, String agntNum, String mailAddress) {
+        this.id = id;
         this.chdrNum = chdrNum;
         this.cownNum = cownNum;
         this.ownerName = ownerName;

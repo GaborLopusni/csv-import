@@ -7,6 +7,8 @@ import com.challenge.csvimport.job.ImportJobRunner;
 import com.challenge.csvimport.job.JobRunner;
 import com.challenge.csvimport.job.builder.DelimitedLineTokenizerBuilder;
 import com.challenge.csvimport.job.mapper.LineMapper;
+import com.challenge.csvimport.job.mapper.StringToDateConverter;
+import com.challenge.csvimport.job.mapper.StringToDoubleConverter;
 import com.challenge.csvimport.job.reader.CustomFlatFileItemReader;
 import com.challenge.csvimport.job.writer.JpaItemWriter;
 import com.challenge.csvimport.repository.OutpayHeaderRepository;
@@ -14,6 +16,7 @@ import com.challenge.csvimport.repository.PolicyRepository;
 import com.challenge.csvimport.repository.RedemptionRepository;
 import com.challenge.csvimport.service.ImportJobService;
 import com.challenge.csvimport.service.ImportService;
+import com.challenge.csvimport.util.DateFormatter;
 import com.challenge.csvimport.util.EntityFieldHelper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
@@ -21,6 +24,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.convert.ConversionService;
+import org.springframework.core.convert.support.DefaultConversionService;
 
 import java.nio.charset.StandardCharsets;
 
@@ -38,6 +43,18 @@ public class ApplicationConfiguration {
     private String redemptionDelimiter;
 
     @Bean
+    public ConversionService conversionService() {
+        DefaultConversionService conversionService = new DefaultConversionService();
+        StringToDateConverter dateConverter = source -> DateFormatter.formatDate(source, "yyyyMMdd");
+        StringToDoubleConverter doubleConverter = Double::parseDouble;
+        conversionService.addConverter(dateConverter);
+        conversionService.addConverter(doubleConverter);
+        DefaultConversionService.addDefaultConverters(conversionService);
+
+        return conversionService;
+    }
+
+    @Bean
     public DelimitedLineTokenizer policyDelimitedLineTokenizer() {
         return new DelimitedLineTokenizerBuilder()
                 .withDelimiter(policyDelimiter)
@@ -51,7 +68,7 @@ public class ApplicationConfiguration {
         return new DelimitedLineTokenizerBuilder()
                 .withDelimiter(outpayHeaderDelimiter)
                 .withEntityColumns(EntityFieldHelper.getFields(OutpayHeader.class))
-                .withStrict(false)
+                .withStrict(true)
                 .build();
     }
 
@@ -65,18 +82,18 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    public LineMapper<Policy> policyLineMapper(DelimitedLineTokenizer policyDelimitedLineTokenizer) {
-        return new LineMapper<>(Policy.class, policyDelimitedLineTokenizer);
+    public LineMapper<Policy> policyLineMapper(DelimitedLineTokenizer policyDelimitedLineTokenizer, ConversionService conversionService) {
+        return new LineMapper<>(Policy.class, policyDelimitedLineTokenizer, conversionService);
     }
 
     @Bean
-    public LineMapper<Redemption> redemptionLineMapper(DelimitedLineTokenizer redemptionDelimitedLineTokenizer) {
-        return new LineMapper<>(Redemption.class, redemptionDelimitedLineTokenizer);
+    public LineMapper<Redemption> redemptionLineMapper(DelimitedLineTokenizer redemptionDelimitedLineTokenizer, ConversionService conversionService) {
+        return new LineMapper<>(Redemption.class, redemptionDelimitedLineTokenizer, conversionService);
     }
 
     @Bean
-    public LineMapper<OutpayHeader> outpayHeaderLineMapper(DelimitedLineTokenizer outpayHeaderDelimitedLineTokenizer) {
-        return new LineMapper<>(OutpayHeader.class, outpayHeaderDelimitedLineTokenizer);
+    public LineMapper<OutpayHeader> outpayHeaderLineMapper(DelimitedLineTokenizer outpayHeaderDelimitedLineTokenizer, ConversionService conversionService) {
+        return new LineMapper<>(OutpayHeader.class, outpayHeaderDelimitedLineTokenizer, conversionService);
     }
 
     @Bean
