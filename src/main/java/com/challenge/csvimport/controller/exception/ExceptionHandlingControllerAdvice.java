@@ -18,18 +18,11 @@ public class ExceptionHandlingControllerAdvice extends ResponseEntityExceptionHa
     @ExceptionHandler(RuntimeException.class)
     public Map<String, Object> handleRuntimeException(RuntimeException e) {
         var errors = new HashMap<String, Object>();
-        errors.put("error", "Something went wrong during import.");
-        errors.put("detail", e.getMessage());
+        errors.put("error", e.getMessage());
 
-        return errors;
-    }
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(InvalidFileNamesException.class)
-    public Map<String, Object> handleInvalidFileNamesException(InvalidFileNamesException e) {
-        var errors = new HashMap<String, Object>();
-        errors.put("detail", e.getFileNames());
-        errors.put("message", e.getMessage());
+        if (e instanceof InvalidFileNamesException) {
+            errors.put("detail", ((InvalidFileNamesException) e).getFileNames());
+        }
 
         return errors;
     }
