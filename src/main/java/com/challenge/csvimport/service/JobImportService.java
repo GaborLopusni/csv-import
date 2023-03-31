@@ -5,11 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 
 @Slf4j
-public class ImportJobService implements ImportService {
+public class JobImportService implements ImportService {
 
     private final JobRunner importJobRunner;
 
-    public ImportJobService(JobRunner importJobRunner) {
+    public JobImportService(JobRunner importJobRunner) {
         this.importJobRunner = importJobRunner;
     }
 

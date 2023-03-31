@@ -13,7 +13,7 @@ public class FixedLengthLineTokenizerBuilder extends AbstractLineTokenizerBuilde
     public FixedLengthLineTokenizerBuilder withColumnRanges(String columnRanges) {
         RangeArrayPropertyEditor editor = new RangeArrayPropertyEditor();
         editor.setAsText(columnRanges);
-        ((FixedLengthTokenizer) this.tokenizer).setColumns((Range[]) editor.getValue());
+        this.tokenizer.setColumns((Range[]) editor.getValue());
 
         return this;
     }

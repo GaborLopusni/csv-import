@@ -9,7 +9,7 @@ public class DelimitedLineTokenizerBuilder extends AbstractLineTokenizerBuilder<
     }
 
     public DelimitedLineTokenizerBuilder withDelimiter(String delimiter) {
-        ((DelimitedLineTokenizer) this.tokenizer).setDelimiter(delimiter);
+        this.tokenizer.setDelimiter(delimiter);
         return this;
     }
 }

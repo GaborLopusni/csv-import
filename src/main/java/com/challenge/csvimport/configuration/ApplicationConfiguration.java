@@ -15,10 +15,10 @@ import com.challenge.csvimport.job.writer.JpaItemWriter;
 import com.challenge.csvimport.repository.OutpayHeaderRepository;
 import com.challenge.csvimport.repository.PolicyRepository;
 import com.challenge.csvimport.repository.RedemptionRepository;
-import com.challenge.csvimport.service.ImportJobService;
+import com.challenge.csvimport.service.JobImportService;
 import com.challenge.csvimport.service.ImportService;
-import com.challenge.csvimport.util.DateFormatter;
-import com.challenge.csvimport.util.EntityFieldHelper;
+import com.challenge.csvimport.utility.DateFormatter;
+import com.challenge.csvimport.utility.EntityFieldHelper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.batch.item.file.transform.FixedLengthTokenizer;
@@ -69,9 +69,9 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    public ConversionService conversionService() {
+    public ConversionService conversionService(DateFormatter dateFormatter) {
         DefaultConversionService conversionService = new DefaultConversionService();
-        StringToDateConverter dateConverter = source -> DateFormatter.formatDate(source, "yyyyMMdd");
+        StringToDateConverter dateConverter = source -> dateFormatter.formatDate(source, "yyyyMMdd");
         StringToDoubleConverter doubleConverter = Double::parseDouble;
         conversionService.addConverter(dateConverter);
         conversionService.addConverter(doubleConverter);
@@ -81,28 +81,28 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    public DelimitedLineTokenizer policyDelimitedLineTokenizer() {
+    public DelimitedLineTokenizer policyDelimitedLineTokenizer(EntityFieldHelper entityFieldHelper) {
         return new DelimitedLineTokenizerBuilder()
                 .withDelimiter(policyDelimiter)
-                .withEntityColumns(EntityFieldHelper.getFields(Policy.class))
+                .withEntityColumns(entityFieldHelper.getFields(Policy.class))
                 .withStrict(false)
                 .build();
     }
 
     @Bean
-    public DelimitedLineTokenizer outpayHeaderDelimitedLineTokenizer() {
+    public DelimitedLineTokenizer outpayHeaderDelimitedLineTokenizer(EntityFieldHelper entityFieldHelper) {
         return new DelimitedLineTokenizerBuilder()
                 .withDelimiter(outpayHeaderDelimiter)
-                .withEntityColumns(EntityFieldHelper.getFields(OutpayHeader.class))
+                .withEntityColumns(entityFieldHelper.getFields(OutpayHeader.class))
                 .withStrict(true)
                 .build();
     }
 
     @Bean
-    public FixedLengthTokenizer redemptionFixedLengthLineTokenizer() {
+    public FixedLengthTokenizer redemptionFixedLengthLineTokenizer(EntityFieldHelper entityFieldHelper) {
         return new FixedLengthLineTokenizerBuilder()
                 .withColumnRanges(redemptionDelimiter)
-                .withEntityColumns(EntityFieldHelper.getFields(Redemption.class))
+                .withEntityColumns(entityFieldHelper.getFields(Redemption.class))
                 .withStrict(false)
                 .build();
     }
@@ -175,16 +175,16 @@ public class ApplicationConfiguration {
 
     @Bean
     public ImportService policyImportService(JobRunner policyImportJobRunner) {
-        return new ImportJobService(policyImportJobRunner);
+        return new JobImportService(policyImportJobRunner);
     }
 
     @Bean
     public ImportService redemptionImportService(JobRunner redemptionImportJobRunner) {
-        return new ImportJobService(redemptionImportJobRunner);
+        return new JobImportService(redemptionImportJobRunner);
     }
 
     @Bean
     public ImportService outpayHeaderImportService(JobRunner outpayHeaderImportJobRunner) {
-        return new ImportJobService(outpayHeaderImportJobRunner);
+        return new JobImportService(outpayHeaderImportJobRunner);
     }
 }

@@ -1,12 +1,15 @@
-package com.challenge.csvimport.util;
+package com.challenge.csvimport.utility;
+
+import org.springframework.stereotype.Component;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@Component
 public class DateFormatter {
-    public static Date formatDate(String date, String pattern) {
+    public Date formatDate(String date, String pattern) {
         DateFormat dateFormat = new SimpleDateFormat(pattern);
 
         try {
