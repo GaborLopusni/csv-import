@@ -6,6 +6,7 @@ import com.challenge.csvimport.entity.Redemption;
 import com.challenge.csvimport.job.ImportJobRunner;
 import com.challenge.csvimport.job.JobRunner;
 import com.challenge.csvimport.job.builder.DelimitedLineTokenizerBuilder;
+import com.challenge.csvimport.job.builder.FixedLengthLineTokenizerBuilder;
 import com.challenge.csvimport.job.mapper.LineMapper;
 import com.challenge.csvimport.job.mapper.StringToDateConverter;
 import com.challenge.csvimport.job.mapper.StringToDoubleConverter;
@@ -20,6 +21,7 @@ import com.challenge.csvimport.util.DateFormatter;
 import com.challenge.csvimport.util.EntityFieldHelper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
+import org.springframework.batch.item.file.transform.FixedLengthTokenizer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -33,13 +35,13 @@ import java.nio.charset.StandardCharsets;
 @ComponentScan("com.challenge.csvimport")
 public class ApplicationConfiguration {
 
-    @Value("${import.policy.delimiter}")
+    @Value("${import.policy.tokenizer.delimiter}")
     private String policyDelimiter;
 
-    @Value("${import.outpay.delimiter}")
+    @Value("${import.outpay.tokenizer.delimiter}")
     private String outpayHeaderDelimiter;
 
-    @Value("${import.redemption.delimiter}")
+    @Value("${import.redemption.tokenizer.ranges}")
     private String redemptionDelimiter;
 
     @Bean
@@ -73,9 +75,9 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    public DelimitedLineTokenizer redemptionDelimitedLineTokenizer() {
-        return new DelimitedLineTokenizerBuilder()
-                .withDelimiter(redemptionDelimiter)
+    public FixedLengthTokenizer redemptionFixedLengthLineTokenizer() {
+        return new FixedLengthLineTokenizerBuilder()
+                .withColumnRanges(redemptionDelimiter)
                 .withEntityColumns(EntityFieldHelper.getFields(Redemption.class))
                 .withStrict(false)
                 .build();
@@ -87,13 +89,13 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    public LineMapper<Redemption> redemptionLineMapper(DelimitedLineTokenizer redemptionDelimitedLineTokenizer, ConversionService conversionService) {
-        return new LineMapper<>(Redemption.class, redemptionDelimitedLineTokenizer, conversionService);
+    public LineMapper<OutpayHeader> outpayHeaderLineMapper(DelimitedLineTokenizer outpayHeaderDelimitedLineTokenizer, ConversionService conversionService) {
+        return new LineMapper<>(OutpayHeader.class, outpayHeaderDelimitedLineTokenizer, conversionService);
     }
 
     @Bean
-    public LineMapper<OutpayHeader> outpayHeaderLineMapper(DelimitedLineTokenizer outpayHeaderDelimitedLineTokenizer, ConversionService conversionService) {
-        return new LineMapper<>(OutpayHeader.class, outpayHeaderDelimitedLineTokenizer, conversionService);
+    public LineMapper<Redemption> redemptionLineMapper(FixedLengthTokenizer redemptionFixedLengthLineTokenizer, ConversionService conversionService) {
+        return new LineMapper<>(Redemption.class, redemptionFixedLengthLineTokenizer, conversionService);
     }
 
     @Bean

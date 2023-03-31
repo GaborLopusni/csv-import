@@ -6,11 +6,11 @@ CREATE TABLE "OutPay_Header" (
     "Clntnum" char(8) NOT NULL,
     "Chdrnum" char(8) NOT NULL,
     "LetterType" char(12) NOT NULL,
-    "PrintDate" date NOT NULL,
+    "PrintDate" timestamp NOT NULL,
     "DataID" char(6),
     "ClntName" varchar(80),
     "ClntAddress" varchar(80),
-    "RegDate" date,
+    "RegDate" timestamp,
     "BenPercent" decimal(6, 2),
     "Role1" char(2),
     "Role2" char(2),
@@ -23,7 +23,7 @@ CREATE TABLE "OutPay_Header" (
     "Notice05" varchar(80),
     "Notice06" varchar(80),
     "Claim_ID" char(9),
-    "TP2ProcessDate" date,
+    "TP2ProcessDate" timestamp,
     PRIMARY KEY ("Outpay_Header_ID")
 );
 

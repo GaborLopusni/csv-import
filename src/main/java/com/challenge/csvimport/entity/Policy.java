@@ -3,15 +3,18 @@ package com.challenge.csvimport.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
+import lombok.Setter;
 
 
 @EqualsAndHashCode
+@Setter
 @Entity
 @Table(schema = "dbo", name = "Policy")
 public class Policy {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dbo.seq_Policy")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_policy")
+    @SequenceGenerator(name = "seq_policy", sequenceName = "dbo.seq_Policy", allocationSize = 1)
     @Column(name = "ID")
     private Long id;
 

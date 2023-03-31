@@ -2,30 +2,14 @@ package com.challenge.csvimport.job.builder;
 
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 
-public class DelimitedLineTokenizerBuilder {
-
-    private final DelimitedLineTokenizer delimitedLineTokenizer;
+public class DelimitedLineTokenizerBuilder extends AbstractLineTokenizerBuilder<DelimitedLineTokenizer> {
 
     public DelimitedLineTokenizerBuilder() {
-        this.delimitedLineTokenizer = new DelimitedLineTokenizer();
+        super(new DelimitedLineTokenizer());
     }
 
     public DelimitedLineTokenizerBuilder withDelimiter(String delimiter) {
-        this.delimitedLineTokenizer.setDelimiter(delimiter);
+        ((DelimitedLineTokenizer)this.tokenizer).setDelimiter(delimiter);
         return this;
-    }
-
-    public DelimitedLineTokenizerBuilder withEntityColumns(String... entityColumns) {
-        this.delimitedLineTokenizer.setNames(entityColumns);
-        return this;
-    }
-
-    public DelimitedLineTokenizerBuilder withStrict(boolean isStrict) {
-        this.delimitedLineTokenizer.setStrict(isStrict);
-        return this;
-    }
-
-    public DelimitedLineTokenizer build() {
-        return this.delimitedLineTokenizer;
     }
 }

@@ -7,15 +7,15 @@ import lombok.Setter;
 
 import java.util.Date;
 
-@Setter
 @EqualsAndHashCode
+@Setter
 @Entity
 @Table(name = "OutPay_Header")
 public class OutpayHeader {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "outpay_header")
-    @SequenceGenerator(name = "outpay_header", sequenceName = "seq_outpay_header", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_outpay_header")
+    @SequenceGenerator(name = "seq_outpay_header", sequenceName = "seq_outpay_header", allocationSize = 1)
     @Column(name = "Outpay_Header_ID")
     private Long id;
 
