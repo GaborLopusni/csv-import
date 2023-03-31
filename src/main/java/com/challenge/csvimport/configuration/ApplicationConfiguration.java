@@ -3,8 +3,6 @@ package com.challenge.csvimport.configuration;
 import com.challenge.csvimport.entity.OutpayHeader;
 import com.challenge.csvimport.entity.Policy;
 import com.challenge.csvimport.entity.Redemption;
-import com.challenge.csvimport.job.ImportJobRunner;
-import com.challenge.csvimport.job.JobRunner;
 import com.challenge.csvimport.job.builder.DelimitedLineTokenizerBuilder;
 import com.challenge.csvimport.job.builder.FixedLengthLineTokenizerBuilder;
 import com.challenge.csvimport.job.mapper.LineMapper;
@@ -15,8 +13,6 @@ import com.challenge.csvimport.job.writer.JpaItemWriter;
 import com.challenge.csvimport.repository.OutpayHeaderRepository;
 import com.challenge.csvimport.repository.PolicyRepository;
 import com.challenge.csvimport.repository.RedemptionRepository;
-import com.challenge.csvimport.service.JobImportService;
-import com.challenge.csvimport.service.ImportService;
 import com.challenge.csvimport.utility.DateFormatter;
 import com.challenge.csvimport.utility.EntityFieldHelper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
@@ -150,41 +146,5 @@ public class ApplicationConfiguration {
     @Bean
     public JpaItemWriter<OutpayHeader> outpayHeaderJpaItemWriter(OutpayHeaderRepository outpayHeaderRepository) {
         return new JpaItemWriter<>(outpayHeaderRepository);
-    }
-
-    @Bean
-    public ImportJobRunner<Policy> policyImportJobRunner(
-            CustomFlatFileItemReader<Policy> policyCustomFlatFileItemReader,
-            JpaItemWriter<Policy> policyJpaItemWriter) {
-        return new ImportJobRunner<>(policyCustomFlatFileItemReader, policyJpaItemWriter);
-    }
-
-    @Bean
-    public ImportJobRunner<Redemption> redemptionImportJobRunner(
-            CustomFlatFileItemReader<Redemption> redemptionCustomFlatFileItemReader,
-            JpaItemWriter<Redemption> redemptionJpaItemWriter) {
-        return new ImportJobRunner<>(redemptionCustomFlatFileItemReader, redemptionJpaItemWriter);
-    }
-
-    @Bean
-    public ImportJobRunner<OutpayHeader> outpayHeaderImportJobRunner(
-            CustomFlatFileItemReader<OutpayHeader> outpayHeaderCustomFlatFileItemReader,
-            JpaItemWriter<OutpayHeader> outpayHeaderJpaItemWriter) {
-        return new ImportJobRunner<>(outpayHeaderCustomFlatFileItemReader, outpayHeaderJpaItemWriter);
-    }
-
-    @Bean
-    public ImportService policyImportService(JobRunner policyImportJobRunner) {
-        return new JobImportService(policyImportJobRunner);
-    }
-
-    @Bean
-    public ImportService redemptionImportService(JobRunner redemptionImportJobRunner) {
-        return new JobImportService(redemptionImportJobRunner);
-    }
-
-    @Bean
-    public ImportService outpayHeaderImportService(JobRunner outpayHeaderImportJobRunner) {
-        return new JobImportService(outpayHeaderImportJobRunner);
     }
 }

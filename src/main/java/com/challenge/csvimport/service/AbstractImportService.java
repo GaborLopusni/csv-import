@@ -1,4 +1,4 @@
-package com.challenge.csvimport.job;
+package com.challenge.csvimport.service;
 
 import com.challenge.csvimport.job.reader.CustomFlatFileItemReader;
 import com.challenge.csvimport.job.writer.JpaItemWriter;
@@ -15,7 +15,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Slf4j
-public class ImportJobRunner<T> implements JobRunner {
+public class AbstractImportService<T> implements ImportService {
 
     @Autowired
     private JobRepository jobRepository;
@@ -30,13 +30,13 @@ public class ImportJobRunner<T> implements JobRunner {
 
     private final JpaItemWriter<T> jpaItemWriter;
 
-    public ImportJobRunner(CustomFlatFileItemReader<T> flatFileItemReader, JpaItemWriter<T> jpaItemWriter) {
+    public AbstractImportService(CustomFlatFileItemReader<T> flatFileItemReader, JpaItemWriter<T> jpaItemWriter) {
         this.flatFileItemReader = flatFileItemReader;
         this.jpaItemWriter = jpaItemWriter;
     }
 
     @Override
-    public void run(Resource resource) throws Exception {
+    public void executeImport(Resource resource) throws Exception {
         flatFileItemReader.setResource(resource);
 
         var fileName = resource.getFilename() != null ? resource.getFilename() : "unknown";
@@ -60,3 +60,4 @@ public class ImportJobRunner<T> implements JobRunner {
         }
     }
 }
+
