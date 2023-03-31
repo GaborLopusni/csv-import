@@ -44,6 +44,30 @@ public class ApplicationConfiguration {
     @Value("${import.redemption.tokenizer.ranges}")
     private String redemptionDelimiter;
 
+    @Value("${import.policy.file.pattern.regexp}")
+    private String policyFileNamePattern;
+
+    @Value("${import.outpay.file.pattern.regexp}")
+    private String outpayHeaderFileNamePattern;
+
+    @Value("${import.redemption.file.pattern.regexp}")
+    private String redemptionFileNamePattern;
+
+    @Bean
+    public String policyFileNamePattern() {
+        return policyFileNamePattern;
+    }
+
+    @Bean
+    public String outpayHeaderFileNamePattern() {
+        return outpayHeaderFileNamePattern;
+    }
+
+    @Bean
+    public String redemptionFileNamePattern() {
+        return redemptionFileNamePattern;
+    }
+
     @Bean
     public ConversionService conversionService() {
         DefaultConversionService conversionService = new DefaultConversionService();

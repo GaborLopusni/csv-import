@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PolicyJobController extends JobController {
 
     @Autowired
-    public PolicyJobController(ImportService policyImportService) {
-        super(policyImportService);
+    public PolicyJobController(ImportService policyImportService, String policyFileNamePattern) {
+        super(policyImportService, policyFileNamePattern);
     }
 }

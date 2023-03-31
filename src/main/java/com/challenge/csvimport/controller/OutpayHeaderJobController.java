@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class OutpayHeaderJobController extends JobController {
 
     @Autowired
-    public OutpayHeaderJobController(ImportService outpayHeaderImportService) {
-        super(outpayHeaderImportService);
+    public OutpayHeaderJobController(ImportService outpayHeaderImportService, String outpayHeaderFileNamePattern) {
+        super(outpayHeaderImportService, outpayHeaderFileNamePattern);
     }
 }

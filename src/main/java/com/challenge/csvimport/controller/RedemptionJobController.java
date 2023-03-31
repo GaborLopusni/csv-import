@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RedemptionJobController extends JobController {
 
     @Autowired
-    public RedemptionJobController(ImportService redemptionImportService) {
-        super(redemptionImportService);
+    public RedemptionJobController(ImportService redemptionImportService, String redemptionFileNamePattern) {
+        super(redemptionImportService, redemptionFileNamePattern);
     }
 }
