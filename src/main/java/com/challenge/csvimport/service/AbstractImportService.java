@@ -10,6 +10,8 @@ import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
+import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -17,34 +19,36 @@ import org.springframework.transaction.PlatformTransactionManager;
 @Slf4j
 public class AbstractImportService<T> implements ImportService {
 
-    @Autowired
-    private JobRepository jobRepository;
+    private final JobRepository jobRepository;
+
+    private final JobLauncher jobLauncher;
+
+    private final PlatformTransactionManager platformTransactionManager;
+
+    private final FlatFileItemReader<T> flatFileItemReader;
+
+    private final ItemWriter<T> itemWriter;
 
     @Autowired
-    private JobLauncher jobLauncher;
-
-    @Autowired
-    private PlatformTransactionManager transactionManager;
-
-    private final CustomFlatFileItemReader<T> flatFileItemReader;
-
-    private final JpaItemWriter<T> jpaItemWriter;
-
-    public AbstractImportService(CustomFlatFileItemReader<T> flatFileItemReader, JpaItemWriter<T> jpaItemWriter) {
+    public AbstractImportService(JobRepository jobRepository, JobLauncher jobLauncher, PlatformTransactionManager platformTransactionManager, FlatFileItemReader<T> flatFileItemReader, ItemWriter<T> itemWriter) {
+        this.jobRepository = jobRepository;
+        this.jobLauncher = jobLauncher;
+        this.platformTransactionManager = platformTransactionManager;
         this.flatFileItemReader = flatFileItemReader;
-        this.jpaItemWriter = jpaItemWriter;
+        this.itemWriter = itemWriter;
     }
 
     @Override
     public void executeImport(Resource resource) throws Exception {
         flatFileItemReader.setResource(resource);
+        var fileName = resource.getFilename();
+        assert fileName != null;
 
-        var fileName = resource.getFilename() != null ? resource.getFilename() : "unknown";
 
         var step = new StepBuilder("import-step", jobRepository)
-                .<T, T>chunk(10, transactionManager)
+                .<T, T>chunk(10, platformTransactionManager)
                 .reader(flatFileItemReader)
-                .writer(jpaItemWriter)
+                .writer(itemWriter)
                 .allowStartIfComplete(true)
                 .build();
 
