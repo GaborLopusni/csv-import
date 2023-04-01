@@ -13,7 +13,7 @@ import com.challenge.csvimport.job.writer.JpaItemWriter;
 import com.challenge.csvimport.repository.OutpayHeaderRepository;
 import com.challenge.csvimport.repository.PolicyRepository;
 import com.challenge.csvimport.repository.RedemptionRepository;
-import com.challenge.csvimport.utility.DateFormatter;
+import com.challenge.csvimport.utility.DateTimeFormatter;
 import com.challenge.csvimport.utility.EntityFieldHelper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
@@ -65,9 +65,9 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    public ConversionService conversionService(DateFormatter dateFormatter) {
+    public ConversionService conversionService(DateTimeFormatter dateTimeFormatter) {
         DefaultConversionService conversionService = new DefaultConversionService();
-        StringToDateConverter dateConverter = source -> dateFormatter.formatDate(source, "yyyyMMdd");
+        StringToDateConverter dateConverter = source -> dateTimeFormatter.formatDate(source, "yyyyMMdd");
         StringToDoubleConverter doubleConverter = Double::parseDouble;
         conversionService.addConverter(dateConverter);
         conversionService.addConverter(doubleConverter);

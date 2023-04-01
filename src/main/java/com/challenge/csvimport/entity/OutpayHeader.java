@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @EqualsAndHashCode
 @Setter
@@ -34,7 +34,7 @@ public class OutpayHeader {
     @NotNull
     @Temporal(TemporalType.DATE)
     @Column(name = "PrintDate")
-    private Date printDate;
+    private LocalDate printDate;
 
     @Column(name = "DataID")
     private String dataId;
@@ -65,12 +65,12 @@ public class OutpayHeader {
 
     @Temporal(TemporalType.DATE)
     @Column(name = "RegDate")
-    private Date regDate;
+    private LocalDate regDate;
 
     public OutpayHeader() {
     }
 
-    public OutpayHeader(String clientNumber, String chdrNum, String letterType, Date printDate, String dataId, String clientName, String clientAddress, String claimId, Double benPercent, String role1, String role2, String cownNum, String cownName, Date regDate) {
+    public OutpayHeader(String clientNumber, String chdrNum, String letterType, LocalDate printDate, String dataId, String clientName, String clientAddress, String claimId, Double benPercent, String role1, String role2, String cownNum, String cownName, LocalDate regDate) {
         this.clientNumber = clientNumber;
         this.chdrNum = chdrNum;
         this.letterType = letterType;
