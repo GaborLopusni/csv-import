@@ -1,4 +1,4 @@
-package com.challenge.csvimport;
+package com.challenge.csvimport.test;
 
 import com.challenge.csvimport.entity.Redemption;
 import com.challenge.csvimport.job.writer.JpaItemWriter;

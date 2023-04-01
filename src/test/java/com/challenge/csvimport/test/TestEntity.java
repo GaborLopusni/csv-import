@@ -1,4 +1,4 @@
-package com.challenge.csvimport;
+package com.challenge.csvimport.test;
 
 import jakarta.persistence.Id;
 
