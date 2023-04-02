@@ -1,7 +1,5 @@
 package com.challenge.csvimport.service;
 
-import com.challenge.csvimport.job.reader.CustomFlatFileItemReader;
-import com.challenge.csvimport.job.writer.JpaItemWriter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.JobParameters;

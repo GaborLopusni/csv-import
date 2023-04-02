@@ -13,9 +13,10 @@ import java.time.LocalDate;
 @Table(name = "OutPay_Header")
 public class OutpayHeader {
 
+    @EqualsAndHashCode.Exclude
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_outpay_header")
-    @SequenceGenerator(name = "seq_outpay_header", sequenceName = "seq_outpay_header", allocationSize = 1)
+    @SequenceGenerator(name = "seq_outpay_header", sequenceName = "\"seq_outpay_header\"", allocationSize = 1)
     @Column(name = "Outpay_Header_ID")
     private Long id;
 

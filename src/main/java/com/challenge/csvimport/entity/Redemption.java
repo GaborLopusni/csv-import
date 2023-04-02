@@ -10,9 +10,10 @@ import lombok.Setter;
 @Table(schema = "dbo", name = "SurValues")
 public class Redemption {
 
+    @EqualsAndHashCode.Exclude
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_sur_values")
-    @SequenceGenerator(name = "seq_sur_values", sequenceName = "dbo.seq_survalues", allocationSize = 1)
+    @SequenceGenerator(name = "seq_sur_values", sequenceName = "dbo.\"seq_survalues\"", allocationSize = 1)
     @Column(name = "ID")
     private Long id;
 

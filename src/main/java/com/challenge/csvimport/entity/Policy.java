@@ -5,8 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Setter;
 
-import java.util.Objects;
-
 
 @EqualsAndHashCode
 @Setter
@@ -14,6 +12,7 @@ import java.util.Objects;
 @Table(schema = "dbo", name = "Policy")
 public class Policy {
 
+    @EqualsAndHashCode.Exclude
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_policy")
     @SequenceGenerator(name = "seq_policy", sequenceName = "dbo.\"seq_policy\"", allocationSize = 1)

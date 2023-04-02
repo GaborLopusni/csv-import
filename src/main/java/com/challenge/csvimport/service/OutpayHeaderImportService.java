@@ -1,8 +1,6 @@
 package com.challenge.csvimport.service;
 
 import com.challenge.csvimport.entity.OutpayHeader;
-import com.challenge.csvimport.job.reader.CustomFlatFileItemReader;
-import com.challenge.csvimport.job.writer.JpaItemWriter;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.item.ItemWriter;
