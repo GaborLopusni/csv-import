@@ -1,3 +1,4 @@
+CREATE SCHEMA IF NOT EXISTS "dbo";
 DROP TABLE IF EXISTS "OutPay_Header";
 DROP SEQUENCE IF EXISTS "seq_outpay_header";
 CREATE SEQUENCE "seq_outpay_header";
