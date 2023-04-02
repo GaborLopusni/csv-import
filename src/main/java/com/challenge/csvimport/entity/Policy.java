@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Setter;
 
+import java.util.Objects;
+
 
 @EqualsAndHashCode
 @Setter
@@ -14,7 +16,7 @@ public class Policy {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_policy")
-    @SequenceGenerator(name = "seq_policy", sequenceName = "dbo.seq_Policy", allocationSize = 1)
+    @SequenceGenerator(name = "seq_policy", sequenceName = "dbo.\"seq_policy\"", allocationSize = 1)
     @Column(name = "ID")
     private Long id;
 

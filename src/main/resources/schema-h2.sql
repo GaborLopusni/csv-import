@@ -28,7 +28,7 @@ CREATE TABLE "OutPay_Header" (
     "TP2ProcessDate" datetime
 );
 
-DROP TABLE IF EXISTS "dbo"."SurValues";;
+DROP TABLE IF EXISTS "dbo"."SurValues";
 DROP SEQUENCE IF EXISTS "dbo"."seq_survalues";
 CREATE SEQUENCE "dbo"."seq_survalues";
 CREATE TABLE "dbo"."SurValues" (

@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 
 @Slf4j
@@ -32,7 +33,7 @@ public abstract class JobController {
     @PostMapping
     public ResponseEntity<List<String>> executeJob(@RequestParam("files") MultipartFile[] files) {
         Assert.state(
-                Arrays.stream(files).noneMatch(multipartFile -> multipartFile.getName().isBlank()),
+                Arrays.stream(files).noneMatch(multipartFile -> multipartFile.getOriginalFilename() == null || (multipartFile.getOriginalFilename()).isEmpty()),
                 "The file cannot be empty in the request body.");
 
         var fileNames = Arrays.stream(files).map(MultipartFile::getOriginalFilename).toList();
