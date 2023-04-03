@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
-class UtilitiesTests {
+class UtilitiesTest {
 
     @Test
     public void entityFieldHelperTest() {

@@ -18,10 +18,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-public class JobControllerTests {
+public class JobControllerTest {
 
-    private JobController policyJobController;
     private static ImportService importService;
+    private JobController policyJobController;
 
     @BeforeAll
     public static void setUp() {
@@ -74,6 +74,5 @@ public class JobControllerTests {
 
         assertEquals("Filenames are invalid", response.get("error"));
         assertEquals(failedFiles, response.get("detail"));
-
     }
 }

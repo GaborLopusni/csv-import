@@ -3,12 +3,10 @@ package com.challenge.csvimport.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
-import lombok.Setter;
 
 import java.time.LocalDate;
 
 @EqualsAndHashCode
-@Setter
 @Entity
 @Table(name = "OutPay_Header")
 public class OutpayHeader {
@@ -49,7 +47,7 @@ public class OutpayHeader {
     @Column(name = "Claim_ID")
     private String claimId;
 
-    @Column(name = "BenPercent", columnDefinition = "NUMERIC", length = 6, precision = 2)
+    @Column(name = "BenPercent")
     private Double benPercent;
 
     @Column(name = "Role1")
@@ -71,7 +69,8 @@ public class OutpayHeader {
     public OutpayHeader() {
     }
 
-    public OutpayHeader(String clientNumber, String chdrNum, String letterType, LocalDate printDate, String dataId, String clientName, String clientAddress, String claimId, Double benPercent, String role1, String role2, String cownNum, String cownName, LocalDate regDate) {
+    public OutpayHeader(Long id, String clientNumber, String chdrNum, String letterType, LocalDate printDate, String dataId, String clientName, String clientAddress, String claimId, Double benPercent, String role1, String role2, String cownNum, String cownName, LocalDate regDate) {
+        this.id = id;
         this.clientNumber = clientNumber;
         this.chdrNum = chdrNum;
         this.letterType = letterType;
@@ -85,6 +84,66 @@ public class OutpayHeader {
         this.role2 = role2;
         this.cownNum = cownNum;
         this.cownName = cownName;
+        this.regDate = regDate;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setClientNumber(String clientNumber) {
+        this.clientNumber = clientNumber;
+    }
+
+    public void setChdrNum(String chdrNum) {
+        this.chdrNum = chdrNum;
+    }
+
+    public void setLetterType(String letterType) {
+        this.letterType = letterType;
+    }
+
+    public void setPrintDate(LocalDate printDate) {
+        this.printDate = printDate;
+    }
+
+    public void setDataId(String dataId) {
+        this.dataId = dataId;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
+    }
+
+    public void setClientAddress(String clientAddress) {
+        this.clientAddress = clientAddress;
+    }
+
+    public void setClaimId(String claimId) {
+        this.claimId = claimId.isEmpty() ? null : claimId;
+    }
+
+    public void setBenPercent(Double benPercent) {
+        this.benPercent = benPercent;
+    }
+
+    public void setRole1(String role1) {
+        this.role1 = role1.isEmpty() ? null : role1;
+    }
+
+    public void setRole2(String role2) {
+        this.role2 = role2.isEmpty() ? null : role2;
+    }
+
+    public void setCownNum(String cownNum) {
+        this.cownNum = cownNum;
+    }
+
+    public void setCownName(String cownName) {
+        this.cownName = cownName;
+    }
+
+    public void setRegDate(LocalDate regDate) {
         this.regDate = regDate;
     }
 }

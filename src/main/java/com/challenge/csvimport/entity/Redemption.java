@@ -23,15 +23,16 @@ public class Redemption {
     @Column(name = "Chdrnum")
     private String chdrNum;
 
-    @Column(name = "Survalue", columnDefinition = "NUMERIC", length = 15, precision = 2)
+    @Column(name = "Survalue")
     private Double surrenderValue;
 
     public Redemption() {
     }
 
-    public Redemption(String chdrNum, Double surrenderValue, String company) {
+    public Redemption(Long id, String company, String chdrNum, Double surrenderValue) {
+        this.id = id;
+        this.company = company;
         this.chdrNum = chdrNum;
         this.surrenderValue = surrenderValue;
-        this.company = company;
     }
 }

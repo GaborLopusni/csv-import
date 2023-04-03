@@ -31,7 +31,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 
-public class ImportServiceTests {
+public class ImportServiceTest {
 
     private static ImportService importService;
 

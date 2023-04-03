@@ -1,28 +1,16 @@
 package com.challenge.csvimport.itest;
 
 import com.challenge.csvimport.entity.Policy;
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-@Profile("integration")
 public class PolicyJobControllerITest extends AbstractJobControllerITest<Policy> {
-
-    @Autowired
-    private MockMvc mvc;
 
     @Autowired
     public PolicyJobControllerITest(JpaRepository<Policy, Long> policyRepository) {
@@ -31,7 +19,6 @@ public class PolicyJobControllerITest extends AbstractJobControllerITest<Policy>
     }
 
     @Test
-    @Rollback
     public void successfulImportTest() throws Exception {
         expectedList.add(new Policy(
                 1L,
