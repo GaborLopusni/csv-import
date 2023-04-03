@@ -3,7 +3,7 @@ package com.challenge.csvimport.job.builder;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 
 /**
- * Builder class for setting delimiter for the tokenizer *
+ * Builder class for setting delimiter for the tokenizer
  */
 public class DelimitedLineTokenizerBuilder extends AbstractLineTokenizerBuilder<DelimitedLineTokenizer> {
 

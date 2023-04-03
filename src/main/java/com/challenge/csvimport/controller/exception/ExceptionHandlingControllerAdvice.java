@@ -18,6 +18,12 @@ import java.util.Map;
 @Slf4j
 public class ExceptionHandlingControllerAdvice extends ResponseEntityExceptionHandler {
 
+    /**
+     * Handles controller level exceptions
+     * @param e exception that should be handled
+     * @return response with status code 400 and
+     * a Map based on the exception message and type
+     */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(RuntimeException.class)
     public Map<String, Object> handleRuntimeException(RuntimeException e) {
