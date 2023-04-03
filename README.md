@@ -18,16 +18,11 @@ The request body should be sent as form-data via POST request method with a key 
 
 The inputs will not be consumed otherwise.
 
-### Running the tests
-Unit and integration tests are also separated based on the maven profile. If `development` is the only active maven profile then only unit tests are executed.
-If `integration` is also active, both unit and integration tests will be involved.
+### Running the application and tests
 
-### Running the application
-
-There are 2 predefined maven profiles which sets the `spring.profiles.active` Spring property to the proper one, so the related application properties can be loaded.
-These maven profiles are `development` and `integration`. 
-In case of the `development` Spring profile a Postgresql instance is configured, while the `integration` one will use an embedded H2 database.
-In case of Postgresql, the password is retrieved from and environment variable named `TEST_PASSWORD`.
+There are 2 predefined maven profiles which sets the `spring.profiles.active` Spring property to the proper one, with related application properties:
+1. `development`: Postgresql instance is configured, only unit tests are executed. Data source password can be set with the `TEST_PASSWORD` environment variable.
+2. `integration`: H2 embedded database is configured, both unit and integration
 
 After packaging the application, it can be fired up with:
 `java -jar -Dspring.profiles.active=development csv-import-0.0.1-SNAPSHOT.jar`
