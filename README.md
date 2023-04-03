@@ -28,6 +28,4 @@ After packaging the application, it can be fired up with:
 `java -jar -Dspring.profiles.active=development csv-import-0.0.1-SNAPSHOT.jar`
 where the `-Dspring.profiles.active` system variable is optional if the project has been built with an active maven profile.
 
-After startup, the service is listening on port 8080, and can be reached with the following url: `localhost:8080/api/job/outpayHeader`.
-
-
+After startup the service is listening on port 8080 by default, and can be reached with the following url: `localhost:8080/api/job/outpayHeader`.
