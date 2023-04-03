@@ -5,6 +5,10 @@ import org.springframework.batch.item.file.LineMapper;
 
 import java.nio.charset.Charset;
 
+/**
+ * Custom FlatFileItemReader for setting the properties of parent class
+ * based on specified type
+ */
 public class CustomFlatFileItemReader<T> extends FlatFileItemReader<T> {
 
     public CustomFlatFileItemReader(LineMapper<T> lineMapper, Charset encoding) {

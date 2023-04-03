@@ -6,6 +6,9 @@ import lombok.EqualsAndHashCode;
 
 import java.time.LocalDate;
 
+/**
+ * Entity class for outpay data
+ */
 @EqualsAndHashCode
 @Entity
 @Table(name = "OutPay_Header")

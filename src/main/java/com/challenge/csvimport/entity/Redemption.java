@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Setter;
 
+/**
+ * Entity class for redemption data
+ */
 @EqualsAndHashCode
 @Setter
 @Entity

@@ -4,6 +4,9 @@ import org.springframework.batch.item.file.transform.FixedLengthTokenizer;
 import org.springframework.batch.item.file.transform.Range;
 import org.springframework.batch.item.file.transform.RangeArrayPropertyEditor;
 
+/**
+ * Builder class for setting column ranges for the tokenizer
+ */
 public class FixedLengthLineTokenizerBuilder extends AbstractLineTokenizerBuilder<FixedLengthTokenizer> {
 
     public FixedLengthLineTokenizerBuilder() {

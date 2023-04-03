@@ -5,7 +5,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Setter;
 
-
+/**
+ * Entity class for policy data
+ */
 @EqualsAndHashCode
 @Setter
 @Entity

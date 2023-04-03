@@ -5,6 +5,9 @@ import org.springframework.batch.item.ItemWriter;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.lang.NonNull;
 
+/**
+ * Custom ItemWriter for saving mapped chunks with JPA
+ */
 public class JpaItemWriter<T> implements ItemWriter<T> {
 
     private final JpaRepository<T, Long> repository;

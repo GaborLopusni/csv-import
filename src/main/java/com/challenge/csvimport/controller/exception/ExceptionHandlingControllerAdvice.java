@@ -10,6 +10,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * ControllerAdvice to handle the controller level exceptions
+ * and return the regarding response
+ */
 @RestControllerAdvice
 @Slf4j
 public class ExceptionHandlingControllerAdvice extends ResponseEntityExceptionHandler {

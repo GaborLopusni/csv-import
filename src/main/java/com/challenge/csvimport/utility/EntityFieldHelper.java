@@ -9,6 +9,11 @@ import java.util.Arrays;
 @Component
 public class EntityFieldHelper {
 
+    /**
+     * Getting the fields of a class
+     * @param clazz input class to iterate
+     * @return array of field names
+     */
     public String[] getFields(Class clazz) {
         return Arrays.stream(clazz.getDeclaredFields())
                 .filter(field -> field.getAnnotation(Id.class) == null)

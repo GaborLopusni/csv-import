@@ -2,6 +2,9 @@ package com.challenge.csvimport.job.builder;
 
 import org.springframework.batch.item.file.transform.AbstractLineTokenizer;
 
+/**
+ * Abstract builder class for setting common properties
+ */
 public abstract class AbstractLineTokenizerBuilder<T extends AbstractLineTokenizer> {
 
     protected final T tokenizer;

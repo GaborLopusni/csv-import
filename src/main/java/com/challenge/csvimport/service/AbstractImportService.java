@@ -14,6 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.transaction.PlatformTransactionManager;
 
+
+/**
+ * Abstract import service which builds the Spring Batch
+ * job and executes it
+ */
 @Slf4j
 public class AbstractImportService<T> implements ImportService {
 
@@ -36,6 +41,10 @@ public class AbstractImportService<T> implements ImportService {
         this.itemWriter = itemWriter;
     }
 
+    /**
+     * Builds and executes import for a resource
+     * @param resource input resource to process
+     */
     @Override
     public void executeImport(Resource resource) throws Exception {
         flatFileItemReader.setResource(resource);

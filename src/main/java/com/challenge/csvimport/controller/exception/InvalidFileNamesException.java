@@ -2,6 +2,9 @@ package com.challenge.csvimport.controller.exception;
 
 import java.util.List;
 
+/**
+ * Exception that can be thrown when there is an invalid filename
+ */
 public class InvalidFileNamesException extends RuntimeException {
     private final List<String> fileNames;
 
