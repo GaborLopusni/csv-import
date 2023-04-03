@@ -3,6 +3,10 @@
 ### Project description
 A Spring Boot service which is able to import multiple type of csv inputs into destination database using Spring Batch. The operators can send multiple files via REST to the according endpoint based on the input.
 
+### Requirements
+1. JDK 17+
+2. Maven
+3. Postgresql [optional]
 ### Endpoints
 3 different endpoints are available, all of them can handle multiple inputs at a time.
 The input file names should match the following patterns:
@@ -19,6 +23,7 @@ Unit and integration tests are also separated based on the maven profile. If `de
 If `integration` is also active, both unit and integration tests will be involved.
 
 ### Running the application
+
 There are 2 predefined maven profiles which sets the `spring.profiles.active` Spring property to the proper one, so the related application properties can be loaded.
 These maven profiles are `development` and `integration`. 
 In case of the `development` Spring profile a Postgresql instance is configured, while the `integration` one will use an embedded H2 database.
