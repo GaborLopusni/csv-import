@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -60,14 +59,10 @@ public class AbstractJobControllerITest<T> {
         }
     }
 
-    protected void dataIntegrityFailure() throws Exception {
+    protected void expectFailure() throws Exception {
         mvc.perform(prepareMockRequestBuilder())
-                .andExpect(status().is(HttpStatus.BAD_REQUEST.value()));
-    }
-
-    protected void invalidFileNameFailure() throws Exception {
-        mvc.perform(prepareMockRequestBuilder())
-                .andExpect(status().is(HttpStatus.BAD_REQUEST.value()));
+                .andExpect(status().is(HttpStatus.BAD_REQUEST.value()))
+                .andExpect(jsonPath("$.error").exists());
     }
 
     private RequestBuilder prepareMockRequestBuilder() {

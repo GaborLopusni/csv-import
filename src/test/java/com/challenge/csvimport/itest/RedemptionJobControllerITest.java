@@ -38,7 +38,6 @@ public class RedemptionJobControllerITest extends AbstractJobControllerITest<Red
         var multipartFileFirst = new MockMultipartFile("files", "ZTPSPF.txt", MediaType.MULTIPART_FORM_DATA_VALUE, firstContent.getBytes(StandardCharsets.UTF_8));
         var multipartFileSecond = new MockMultipartFile("files", "ZTPSPF.txt", MediaType.MULTIPART_FORM_DATA_VALUE, secondContent.getBytes(StandardCharsets.UTF_8));
 
-
         mockMultipartFiles.add(multipartFileFirst);
         mockMultipartFiles.add(multipartFileSecond);
         successfulImport();
@@ -49,7 +48,7 @@ public class RedemptionJobControllerITest extends AbstractJobControllerITest<Red
         var content = "130004871     408908A.00K5003MT   WEEKEND1  2020-02-15-08.19.59.017770";
         var multipartFile = new MockMultipartFile("files", "ZTPSPF.txt", MediaType.MULTIPART_FORM_DATA_VALUE, content.getBytes(StandardCharsets.UTF_8));
         mockMultipartFiles.add(multipartFile);
-        dataIntegrityFailure();
+        expectFailure();
     }
 
     @Test
@@ -57,6 +56,6 @@ public class RedemptionJobControllerITest extends AbstractJobControllerITest<Red
         var content = "130004871           0.00K5003MT   WEEKEND1  2020-02-15-08.19.59.017770\"";
         var multipartFile = new MockMultipartFile("files", "ZTPSPF1101.txt", MediaType.MULTIPART_FORM_DATA_VALUE, content.getBytes(StandardCharsets.UTF_8));
         mockMultipartFiles.add(multipartFile);
-        invalidFileNameFailure();
+        expectFailure();
     }
 }

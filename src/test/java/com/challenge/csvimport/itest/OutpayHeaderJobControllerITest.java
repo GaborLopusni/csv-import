@@ -4,7 +4,6 @@ import com.challenge.csvimport.entity.OutpayHeader;
 import com.challenge.csvimport.utility.DateTimeFormatter;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
@@ -65,7 +64,6 @@ public class OutpayHeaderJobControllerITest extends AbstractJobControllerITest<O
         var multipartFileFirst = new MockMultipartFile("files", "OUTPH_CUP_20230404_1829.TXT", MediaType.MULTIPART_FORM_DATA_VALUE, firstContent.getBytes(StandardCharsets.UTF_8));
         var multipartFileSecond = new MockMultipartFile("files", "OUTPH_CUP_20230405_1829.TXT", MediaType.MULTIPART_FORM_DATA_VALUE, secondContent.getBytes(StandardCharsets.UTF_8));
 
-
         mockMultipartFiles.add(multipartFileFirst);
         mockMultipartFiles.add(multipartFileSecond);
         successfulImport();
@@ -76,7 +74,7 @@ public class OutpayHeaderJobControllerITest extends AbstractJobControllerITest<O
         var content = "00000001;00000002;TES;20230403;OUTPAY;Test Name;test address;;100.00OW;  ;00000010;Test Name; ";
         var multipartFile = new MockMultipartFile("files", "OUTPH_CUP_20230404_1829.TXT", MediaType.MULTIPART_FORM_DATA_VALUE, content.getBytes(StandardCharsets.UTF_8));
         mockMultipartFiles.add(multipartFile);
-        dataIntegrityFailure();
+        expectFailure();
     }
 
     @Test
@@ -84,6 +82,6 @@ public class OutpayHeaderJobControllerITest extends AbstractJobControllerITest<O
         var content = "00000001;00000002;TES;20230403;OUTPAY;Test Name;test address;;100.00;OW;  ;00000010;Test Name; ";
         var multipartFile = new MockMultipartFile("files", "OUTPH_CUP_202304041829.TXT", MediaType.MULTIPART_FORM_DATA_VALUE, content.getBytes(StandardCharsets.UTF_8));
         mockMultipartFiles.add(multipartFile);
-        invalidFileNameFailure();
+        expectFailure();
     }
 }
