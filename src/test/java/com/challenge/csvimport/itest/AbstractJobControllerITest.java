@@ -24,12 +24,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class AbstractJobControllerITest<T> {
 
     private final JpaRepository<T, Long> repository;
+
     protected String uri;
+
     protected List<T> expectedList;
+
     protected List<MockMultipartFile> mockMultipartFiles;
+
     @Autowired
     private MockMvc mvc;
-
 
     public AbstractJobControllerITest(JpaRepository<T, Long> repository) {
         this.repository = repository;

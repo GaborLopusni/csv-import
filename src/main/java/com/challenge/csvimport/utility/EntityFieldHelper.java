@@ -11,6 +11,7 @@ public class EntityFieldHelper {
 
     /**
      * Getting the fields of a class
+     *
      * @param clazz input class to iterate
      * @return array of field names
      */

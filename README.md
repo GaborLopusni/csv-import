@@ -22,7 +22,7 @@ The inputs will not be consumed otherwise.
 
 There are 2 predefined maven profiles which sets the `spring.profiles.active` Spring property to the proper one, with related application properties:
 1. `development`: Postgresql instance is configured, only unit tests are executed. Data source password can be set with the `TEST_PASSWORD` environment variable.
-2. `integration`: H2 embedded database is configured, both unit and integration
+2. `integration`: H2 embedded database is configured, both unit and integration tests are executed.
 
 After packaging the application, it can be fired up with:
 `java -jar -Dspring.profiles.active=development csv-import-0.0.1-SNAPSHOT.jar`

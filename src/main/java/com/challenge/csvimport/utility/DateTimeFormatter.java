@@ -10,7 +10,8 @@ import java.time.format.DateTimeParseException;
 public class DateTimeFormatter {
     /**
      * Formats date using the specified pattern
-     * @param date date to format
+     *
+     * @param date    date to format
      * @param pattern the patter
      * @return formatted LocalDate instance or null
      */

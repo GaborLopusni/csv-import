@@ -20,6 +20,7 @@ public class ExceptionHandlingControllerAdvice extends ResponseEntityExceptionHa
 
     /**
      * Handles controller level exceptions
+     *
      * @param e exception that should be handled
      * @return response with status code 400 and
      * a Map based on the exception message and type

@@ -32,10 +32,10 @@ public abstract class JobController {
         this.filePattern = filePattern;
     }
 
-
     /**
      * Handles the POST requests, and triggers
      * the import service execution with the input files
+     *
      * @param files file inputs
      * @return the response with the list of successfully imported files
      */
@@ -56,7 +56,7 @@ public abstract class JobController {
                         importService.executeImport(resource);
                     } catch (FlatFileParseException flatFileParseException) {
                         log.error("Import for resource: {} has failed, file could not be parsed.", resource.getFilename());
-                        throw new RuntimeException("Import for resources has failed, file could not be parsed.");
+                        throw new RuntimeException("Import for resources has failed, at least one of the files could not be parsed.");
                     } catch (DataAccessException e) {
                         log.error("Import for resource: {} has failed: {}.", resource.getFilename(), e.getMessage());
                         throw new RuntimeException("Import has failed due a database related error, please check the integrity of the data.");
@@ -72,6 +72,7 @@ public abstract class JobController {
 
     /**
      * Validates file names
+     *
      * @param fileNames file inputs
      * @throws InvalidFileNamesException when invalid filename is found
      */
@@ -85,6 +86,7 @@ public abstract class JobController {
 
     /**
      * Validates file name
+     *
      * @param fileName file input
      * @return returns false if the input doesn't match the regexp
      */

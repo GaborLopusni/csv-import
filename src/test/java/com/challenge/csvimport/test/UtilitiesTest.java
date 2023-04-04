@@ -1,5 +1,6 @@
 package com.challenge.csvimport.test;
 
+import com.challenge.csvimport.test.entity.TestEntity;
 import com.challenge.csvimport.utility.DateTimeFormatter;
 import com.challenge.csvimport.utility.EntityFieldHelper;
 import org.junit.jupiter.api.Assertions;
