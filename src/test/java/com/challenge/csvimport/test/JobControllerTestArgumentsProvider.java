@@ -11,6 +11,8 @@ import org.springframework.mock.web.MockMultipartFile;
 import java.util.Collections;
 import java.util.stream.Stream;
 
+import static com.challenge.csvimport.controller.exception.Constants.*;
+
 public class JobControllerTestArgumentsProvider implements ArgumentsProvider {
 
     @Override
@@ -20,19 +22,19 @@ public class JobControllerTestArgumentsProvider implements ArgumentsProvider {
                         "CUSTCOMP[0-9]{2}\\.(TXT|txt)",
                         new MockMultipartFile[]{new MockMultipartFile("CUSTCOMP01.txt", "CUSTCOMP01.txt", null, (byte[]) null)},
                         new FlatFileParseException("parse failed", "CUSTCOMP01.txt"),
-                        "Import for resources has failed, file could not be parsed."
+                        String.format(PARSE_EXCEPTION_MESSAGE_TEMPLATE, "CUSTCOMP01.txt")
                 ),
                 Arguments.of(
                         "CUSTCOMP[0-9]{2}\\.(TXT|txt)",
                         new MockMultipartFile[]{new MockMultipartFile("CUSTCOMP01.txt", "CUSTCOMP01.txt", null, (byte[]) null)},
                         new DataIntegrityViolationException("import failed"),
-                        "Import has failed due a database related error, please check the integrity of the data."
+                        String.format(DATA_ACCESS_EXCEPTION_MESSAGE_TEMPLATE, "CUSTCOMP01.txt")
                 ),
                 Arguments.of(
                         "CUSTCOMP[0-9]{2}\\.(TXT|txt)",
                         new MockMultipartFile[]{new MockMultipartFile("CUSTCOMP01.txt", "CUSTCOMP01.txt", null, (byte[]) null)},
                         new Exception("generic failure"),
-                        "Import has failed."
+                        String.format(GENERIC_EXCEPTION_MESSAGE_TEMPLATE, "CUSTCOMP01.txt")
                 ),
                 Arguments.of(
                         "CUSTCOMP[0-9]{2}\\.(TXT|txt)",

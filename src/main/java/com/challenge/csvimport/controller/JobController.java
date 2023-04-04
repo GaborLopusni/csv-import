@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.challenge.csvimport.controller.exception.Constants.*;
+
 /**
  * Abstract controller class implementing the common job execution steps
  * and handle exceptions
@@ -41,28 +43,27 @@ public abstract class JobController {
      */
     @PostMapping
     public ResponseEntity<List<String>> executeJob(@RequestParam("files") MultipartFile[] files) {
+        var fileNames = Arrays.stream(files).map(MultipartFile::getOriginalFilename).toList();
+
         Assert.state(
-                Arrays.stream(files).noneMatch(multipartFile -> multipartFile.getOriginalFilename() == null || (multipartFile.getOriginalFilename()).isEmpty()),
+                fileNames.stream().noneMatch(fileName -> fileName == null || fileName.isEmpty()),
                 "The file cannot be empty in the request body.");
 
-        var fileNames = Arrays.stream(files).map(MultipartFile::getOriginalFilename).toList();
         validateFileNames(fileNames);
-
-        Arrays.stream(files).forEach(multipartFile -> log.info("Executing job for: FileName: {}", multipartFile.getOriginalFilename()));
-
+        log.info("Executing job for: FileNames: {}", fileNames);
 
         Arrays.stream(files).map(MultipartFile::getResource).forEach(resource -> {
                     try {
                         importService.executeImport(resource);
                     } catch (FlatFileParseException flatFileParseException) {
                         log.error("Import for resource: {} has failed, file could not be parsed.", resource.getFilename());
-                        throw new RuntimeException("Import for resources has failed, at least one of the files could not be parsed.");
+                        throw new RuntimeException(String.format(PARSE_EXCEPTION_MESSAGE_TEMPLATE, resource.getFilename()));
                     } catch (DataAccessException e) {
                         log.error("Import for resource: {} has failed: {}.", resource.getFilename(), e.getMessage());
-                        throw new RuntimeException("Import has failed due a database related error, please check the integrity of the data.");
+                        throw new RuntimeException(String.format(DATA_ACCESS_EXCEPTION_MESSAGE_TEMPLATE, resource.getFilename()));
                     } catch (Exception e) {
                         log.error("Import for resource: {} has failed: {}.", resource.getFilename(), e.getMessage());
-                        throw new RuntimeException("Import has failed.");
+                        throw new RuntimeException(String.format(GENERIC_EXCEPTION_MESSAGE_TEMPLATE, resource.getFilename()));
                     }
                 }
         );

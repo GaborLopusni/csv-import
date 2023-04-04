@@ -42,8 +42,7 @@ public class AbstractImportService<T> implements ImportService {
     }
 
     /**
-     * Builds and executes import for a resource
-     *
+     * Builds and executes import job for a resource
      * @param resource input resource to process
      */
     @Override
@@ -51,7 +50,6 @@ public class AbstractImportService<T> implements ImportService {
         flatFileItemReader.setResource(resource);
         var fileName = resource.getFilename();
         assert fileName != null;
-
 
         var step = new StepBuilder("import-step", jobRepository)
                 .<T, T>chunk(10, platformTransactionManager)
