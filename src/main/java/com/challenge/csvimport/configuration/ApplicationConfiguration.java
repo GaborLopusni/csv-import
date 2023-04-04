@@ -6,7 +6,7 @@ import com.challenge.csvimport.entity.Redemption;
 import com.challenge.csvimport.job.builder.DelimitedLineTokenizerBuilder;
 import com.challenge.csvimport.job.builder.FixedLengthLineTokenizerBuilder;
 import com.challenge.csvimport.job.mapper.LineMapper;
-import com.challenge.csvimport.job.mapper.StringToDateConverter;
+import com.challenge.csvimport.job.mapper.StringToLocalDateConverter;
 import com.challenge.csvimport.job.mapper.StringToDoubleConverter;
 import com.challenge.csvimport.job.reader.CustomFlatFileItemReader;
 import com.challenge.csvimport.job.writer.JpaItemWriter;
@@ -67,7 +67,7 @@ public class ApplicationConfiguration {
     @Bean
     public ConversionService conversionService(DateTimeFormatter dateTimeFormatter) {
         DefaultConversionService conversionService = new DefaultConversionService();
-        StringToDateConverter dateConverter = source -> dateTimeFormatter.formatDate(source, "yyyyMMdd");
+        StringToLocalDateConverter dateConverter = source -> dateTimeFormatter.formatDate(source, "yyyyMMdd");
         StringToDoubleConverter doubleConverter = Double::parseDouble;
         conversionService.addConverter(dateConverter);
         conversionService.addConverter(doubleConverter);
