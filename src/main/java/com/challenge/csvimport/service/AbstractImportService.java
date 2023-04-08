@@ -1,12 +1,18 @@
 package com.challenge.csvimport.service;
 
+import com.challenge.csvimport.controller.exception.CsvImportRuntimeException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.BatchStatus;
+import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameters;
+import org.springframework.batch.core.JobParametersInvalidException;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
+import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRepository;
+import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
@@ -43,11 +49,14 @@ public class AbstractImportService<T> implements ImportService {
 
     /**
      * Builds and executes import job for a resource
+     *
      * @param resource input resource to process
      */
     @Override
-    public void executeImport(Resource resource) throws Exception {
+    public void executeImport(Resource resource) {
         flatFileItemReader.setResource(resource);
+        JobExecution jobExecution;
+
         var fileName = resource.getFilename();
         assert fileName != null;
 
@@ -63,10 +72,15 @@ public class AbstractImportService<T> implements ImportService {
                 .incrementer(new RunIdIncrementer())
                 .build();
 
-        var jobExecution = jobLauncher.run(job, new JobParameters());
+        try {
+            jobExecution = jobLauncher.run(job, new JobParameters());
+        } catch (JobInstanceAlreadyCompleteException | JobExecutionAlreadyRunningException |
+                 JobParametersInvalidException | JobRestartException exception) {
+            throw new CsvImportRuntimeException(exception.getMessage());
+        }
 
         if (jobExecution.getStatus() == BatchStatus.FAILED) {
-            throw (Exception) jobExecution.getAllFailureExceptions().get(0);
+            throw new CsvImportRuntimeException(jobExecution.getAllFailureExceptions().get(0).getMessage());
         }
     }
 }

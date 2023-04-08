@@ -13,12 +13,10 @@ public class LineMapper<T> extends DefaultLineMapper<T> {
 
     public LineMapper(Class<T> type, LineTokenizer lineTokenizer, ConversionService conversionService) {
         super();
-        this.setFieldSetMapper(new BeanWrapperFieldSetMapper<>() {
-            {
-                setTargetType(type);
-                setConversionService(conversionService);
-            }
-        });
+        var beanWrapperFieldSetMapper = new BeanWrapperFieldSetMapper<T>();
+        beanWrapperFieldSetMapper.setTargetType(type);
+        beanWrapperFieldSetMapper.setConversionService(conversionService);
+        this.setFieldSetMapper(beanWrapperFieldSetMapper);
         this.setLineTokenizer(lineTokenizer);
     }
 }

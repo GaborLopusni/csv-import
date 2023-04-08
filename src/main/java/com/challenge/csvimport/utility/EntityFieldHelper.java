@@ -15,7 +15,7 @@ public class EntityFieldHelper {
      * @param clazz input class to iterate
      * @return array of field names
      */
-    public String[] getFields(Class clazz) {
+    public String[] getFields(Class<?> clazz) {
         return Arrays.stream(clazz.getDeclaredFields())
                 .filter(field -> field.getAnnotation(Id.class) == null)
                 .map(Field::getName).toArray(String[]::new);

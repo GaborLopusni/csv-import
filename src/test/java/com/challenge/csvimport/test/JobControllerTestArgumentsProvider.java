@@ -33,7 +33,7 @@ public class JobControllerTestArgumentsProvider implements ArgumentsProvider {
                 Arguments.of(
                         "CUSTCOMP[0-9]{2}\\.(TXT|txt)",
                         new MockMultipartFile[]{new MockMultipartFile("CUSTCOMP01.txt", "CUSTCOMP01.txt", null, (byte[]) null)},
-                        new Exception("generic failure"),
+                        new RuntimeException("generic failure"),
                         String.format(GENERIC_EXCEPTION_MESSAGE_TEMPLATE, "CUSTCOMP01.txt")
                 ),
                 Arguments.of(

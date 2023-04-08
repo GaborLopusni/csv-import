@@ -31,8 +31,8 @@ public class ExceptionHandlingControllerAdvice extends ResponseEntityExceptionHa
         var errors = new HashMap<String, Object>();
         errors.put("error", e.getMessage());
 
-        if (e instanceof InvalidFileNamesException) {
-            errors.put("detail", ((InvalidFileNamesException) e).getFileNames());
+        if (e instanceof InvalidFileNamesException invalidFileNamesException) {
+            errors.put("detail", invalidFileNamesException.getFileNames());
         }
 
         return errors;

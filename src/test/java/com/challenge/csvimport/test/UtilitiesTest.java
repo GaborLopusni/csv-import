@@ -11,7 +11,7 @@ import java.time.LocalDate;
 class UtilitiesTest {
 
     @Test
-    public void entityFieldHelperTest() {
+    void entityFieldHelperTest() {
         var expectedResult = new String[]{"testField1", "testField2", "testField3", "testField4"};
         var entityFieldHelper = new EntityFieldHelper();
         var result = entityFieldHelper.getFields(TestEntity.class);
@@ -20,7 +20,7 @@ class UtilitiesTest {
     }
 
     @Test
-    public void dateFormatterTest() {
+    void dateFormatterTest() {
         var dateTimeFormatter = new DateTimeFormatter();
         var result = dateTimeFormatter.formatDate("20230401", "yyyyMMdd");
         var expectedResult = LocalDate.of(2023, 4, 1);

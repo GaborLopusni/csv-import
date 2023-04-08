@@ -9,7 +9,7 @@ import org.springframework.mock.web.MockMultipartFile;
 
 import java.nio.charset.StandardCharsets;
 
-public class RedemptionJobControllerITest extends AbstractJobControllerITest<Redemption> {
+class RedemptionJobControllerITest extends AbstractITestJobController<Redemption> {
 
     @Autowired
     public RedemptionJobControllerITest(JpaRepository<Redemption, Long> redemptionRepository) {
@@ -18,7 +18,7 @@ public class RedemptionJobControllerITest extends AbstractJobControllerITest<Red
     }
 
     @Test
-    public void successfulImportTest() throws Exception {
+    void successfulImportTest() throws Exception {
         expectedList.add(new Redemption(
                 1L,
                 "1",
@@ -44,7 +44,7 @@ public class RedemptionJobControllerITest extends AbstractJobControllerITest<Red
     }
 
     @Test
-    public void dataIntegrityFailureTest() throws Exception {
+    void dataIntegrityFailureTest() throws Exception {
         var content = "130004871     408908A.00K5003MT   WEEKEND1  2020-02-15-08.19.59.017770";
         var multipartFile = new MockMultipartFile("files", "ZTPSPF.txt", MediaType.MULTIPART_FORM_DATA_VALUE, content.getBytes(StandardCharsets.UTF_8));
         mockMultipartFiles.add(multipartFile);
@@ -52,7 +52,7 @@ public class RedemptionJobControllerITest extends AbstractJobControllerITest<Red
     }
 
     @Test
-    public void invalidFileNameFailureTest() throws Exception {
+    void invalidFileNameFailureTest() throws Exception {
         var content = "130004871           0.00K5003MT   WEEKEND1  2020-02-15-08.19.59.017770\"";
         var multipartFile = new MockMultipartFile("files", "ZTPSPF1101.txt", MediaType.MULTIPART_FORM_DATA_VALUE, content.getBytes(StandardCharsets.UTF_8));
         mockMultipartFiles.add(multipartFile);

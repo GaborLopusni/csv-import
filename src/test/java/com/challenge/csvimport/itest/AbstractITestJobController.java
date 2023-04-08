@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class AbstractJobControllerITest<T> {
+public class AbstractITestJobController<T> {
 
     private final JpaRepository<T, Long> repository;
 
@@ -33,7 +33,7 @@ public class AbstractJobControllerITest<T> {
     @Autowired
     private MockMvc mvc;
 
-    public AbstractJobControllerITest(JpaRepository<T, Long> repository) {
+    public AbstractITestJobController(JpaRepository<T, Long> repository) {
         this.repository = repository;
     }
 

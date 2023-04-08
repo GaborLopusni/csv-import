@@ -1,5 +1,6 @@
 package com.challenge.csvimport.controller;
 
+import com.challenge.csvimport.controller.exception.CsvImportRuntimeException;
 import com.challenge.csvimport.controller.exception.InvalidFileNamesException;
 import com.challenge.csvimport.service.ImportService;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +30,7 @@ public abstract class JobController {
 
     private final String filePattern;
 
-    public JobController(ImportService importService, String filePattern) {
+    protected JobController(ImportService importService, String filePattern) {
         this.importService = importService;
         this.filePattern = filePattern;
     }
@@ -43,7 +44,7 @@ public abstract class JobController {
      */
     @PostMapping
     public ResponseEntity<List<String>> executeJob(@RequestParam("files") MultipartFile[] files) {
-        var fileNames = Arrays.stream(files).map(MultipartFile::getOriginalFilename).toList();
+        var fileNames = Arrays.stream(files).map(multipartFile -> multipartFile.getOriginalFilename() != null ? multipartFile.getOriginalFilename() : "").toList();
 
         Assert.state(
                 fileNames.stream().noneMatch(fileName -> fileName == null || fileName.isEmpty()),
@@ -57,13 +58,13 @@ public abstract class JobController {
                         importService.executeImport(resource);
                     } catch (FlatFileParseException flatFileParseException) {
                         log.error("Import for resource: {} has failed, file could not be parsed.", resource.getFilename());
-                        throw new RuntimeException(String.format(PARSE_EXCEPTION_MESSAGE_TEMPLATE, resource.getFilename()));
+                        throw new CsvImportRuntimeException(String.format(PARSE_EXCEPTION_MESSAGE_TEMPLATE, resource.getFilename()));
                     } catch (DataAccessException e) {
                         log.error("Import for resource: {} has failed: {}.", resource.getFilename(), e.getMessage());
-                        throw new RuntimeException(String.format(DATA_ACCESS_EXCEPTION_MESSAGE_TEMPLATE, resource.getFilename()));
+                        throw new CsvImportRuntimeException(String.format(DATA_ACCESS_EXCEPTION_MESSAGE_TEMPLATE, resource.getFilename()));
                     } catch (Exception e) {
                         log.error("Import for resource: {} has failed: {}.", resource.getFilename(), e.getMessage());
-                        throw new RuntimeException(String.format(GENERIC_EXCEPTION_MESSAGE_TEMPLATE, resource.getFilename()));
+                        throw new CsvImportRuntimeException(String.format(GENERIC_EXCEPTION_MESSAGE_TEMPLATE, resource.getFilename()));
                     }
                 }
         );

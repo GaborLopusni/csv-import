@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.challenge</groupId>
 	<artifactId>csv-import</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>csv-import-service</name>
 	<description>Project for importing CSV data</description>
 	<parent>

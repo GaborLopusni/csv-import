@@ -81,7 +81,7 @@ public class ImportServiceTest {
     }
 
     @Test
-    public void whenExecutionHasFailed_thenExceptionShouldBeThrown() throws Exception {
+    void whenExecutionHasFailed_thenExceptionShouldBeThrown() throws Exception {
         mockFailedExecution();
         Exception exception = assertThrows(
                 Exception.class,
@@ -91,7 +91,7 @@ public class ImportServiceTest {
     }
 
     @Test
-    public void whenExecutionIsCompleted_thenExceptionShouldNotBeThrown() throws Exception {
+    void whenExecutionIsCompleted_thenExceptionShouldNotBeThrown() throws Exception {
         mockSuccessfulExecution();
         assertDoesNotThrow(() -> importService.executeImport(resource));
     }

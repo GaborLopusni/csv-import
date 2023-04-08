@@ -27,7 +27,7 @@ public class JobControllerTest {
 
     @ParameterizedTest
     @ArgumentsSource(JobControllerTestArgumentsProvider.class)
-    public void jobControllerFailureTest(String filePattern, MultipartFile[] multipartFiles, Exception expectedException, String expectedResult) throws Exception {
+    void jobControllerFailureTest(String filePattern, MultipartFile[] multipartFiles, Exception expectedException, String expectedResult) {
 
         jobController = new PolicyJobController(importService, filePattern);
         doThrow(expectedException).when(importService).executeImport(any());
@@ -40,7 +40,7 @@ public class JobControllerTest {
     }
 
     @Test
-    public void jobControllerSuccessfulTest() throws Exception {
+    void jobControllerSuccessfulTest() {
         jobController = new PolicyJobController(importService, "CUSTCOMP[0-9]{2}\\.(TXT|txt)");
         doNothing().when(importService).executeImport(any());
         var multipartFiles = new MockMultipartFile[]{new MockMultipartFile("CUSTCOMP01.txt", "CUSTCOMP01.txt", null, (byte[]) null)};

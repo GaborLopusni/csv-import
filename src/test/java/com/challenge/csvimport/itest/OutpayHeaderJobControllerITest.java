@@ -10,7 +10,7 @@ import org.springframework.mock.web.MockMultipartFile;
 
 import java.nio.charset.StandardCharsets;
 
-public class OutpayHeaderJobControllerITest extends AbstractJobControllerITest<OutpayHeader> {
+class OutpayHeaderJobControllerITest extends AbstractITestJobController<OutpayHeader> {
 
     @Autowired
     DateTimeFormatter dateTimeFormatter;
@@ -22,7 +22,7 @@ public class OutpayHeaderJobControllerITest extends AbstractJobControllerITest<O
     }
 
     @Test
-    public void successfulImportTest() throws Exception {
+    void successfulImportTest() throws Exception {
         expectedList.add(new OutpayHeader(
                 1L,
                 "00000001",
@@ -70,7 +70,7 @@ public class OutpayHeaderJobControllerITest extends AbstractJobControllerITest<O
     }
 
     @Test
-    public void dataIntegrityFailureTest() throws Exception {
+    void dataIntegrityFailureTest() throws Exception {
         var content = "00000001;00000002;TES;20230403;OUTPAY;Test Name;test address;;100.00OW;  ;00000010;Test Name; ";
         var multipartFile = new MockMultipartFile("files", "OUTPH_CUP_20230404_1829.TXT", MediaType.MULTIPART_FORM_DATA_VALUE, content.getBytes(StandardCharsets.UTF_8));
         mockMultipartFiles.add(multipartFile);
@@ -78,7 +78,7 @@ public class OutpayHeaderJobControllerITest extends AbstractJobControllerITest<O
     }
 
     @Test
-    public void invalidFileNameFailureTest() throws Exception {
+    void invalidFileNameFailureTest() throws Exception {
         var content = "00000001;00000002;TES;20230403;OUTPAY;Test Name;test address;;100.00;OW;  ;00000010;Test Name; ";
         var multipartFile = new MockMultipartFile("files", "OUTPH_CUP_202304041829.TXT", MediaType.MULTIPART_FORM_DATA_VALUE, content.getBytes(StandardCharsets.UTF_8));
         mockMultipartFiles.add(multipartFile);

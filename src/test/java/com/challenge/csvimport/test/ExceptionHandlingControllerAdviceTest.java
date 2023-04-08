@@ -9,10 +9,10 @@ import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class ExceptionHandlingControllerAdviceTest {
+class ExceptionHandlingControllerAdviceTest {
 
     @Test
-    public void controllerAdviceTest() {
+    void controllerAdviceTest() {
         var controllerAdvice = new ExceptionHandlingControllerAdvice();
         var exception = new RuntimeException("some message");
         var response = controllerAdvice.handleRuntimeException(exception);

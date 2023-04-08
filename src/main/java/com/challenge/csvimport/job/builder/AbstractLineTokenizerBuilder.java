@@ -9,7 +9,7 @@ public abstract class AbstractLineTokenizerBuilder<T extends AbstractLineTokeniz
 
     protected final T tokenizer;
 
-    public AbstractLineTokenizerBuilder(T tokenizer) {
+    protected AbstractLineTokenizerBuilder(T tokenizer) {
         this.tokenizer = tokenizer;
     }
 
