@@ -29,3 +29,15 @@ After packaging the application, it can be fired up with:
 where the `-Dspring.profiles.active` system variable is optional if the project has been built with an active maven profile.
 
 After startup the service is listening on port 8080 by default, and can be reached with the following url: `localhost:8080/api/job/outpayHeader`.
+
+### Running with docker
+
+Docker image can be built with integration active profile using the following mvn command:
+`mvn spring-boot:build-image -Pintegration`
+
+After the image has been built, it can be run by:
+`docker run -d -p 8080:8080 csv-import:1.0.0` which exposes the container port 8080 to localhost:8080.
+
+### Send multipart files via POST
+
+Reference: https://www.postman.com/postman/workspace/postman-answers/documentation/13455110-00378d5c-5b08-4813-98da-bc47a2e6021d
