@@ -40,7 +40,7 @@ class RedemptionJobControllerITest extends AbstractITestJobController<Redemption
 
         mockMultipartFiles.add(multipartFileFirst);
         mockMultipartFiles.add(multipartFileSecond);
-        successfulImport();
+        expectSuccess();
     }
 
     @Test

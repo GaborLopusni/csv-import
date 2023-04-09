@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -43,7 +44,7 @@ public class AbstractITestJobController<T> {
         mockMultipartFiles = new ArrayList<>();
     }
 
-    protected void successfulImport() throws Exception {
+    protected void expectSuccess() throws Exception {
         mvc.perform(prepareMockRequestBuilder())
                 .andExpect(status().is(HttpStatus.OK.value()));
 

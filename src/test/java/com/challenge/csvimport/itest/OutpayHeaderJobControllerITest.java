@@ -66,7 +66,7 @@ class OutpayHeaderJobControllerITest extends AbstractITestJobController<OutpayHe
 
         mockMultipartFiles.add(multipartFileFirst);
         mockMultipartFiles.add(multipartFileSecond);
-        successfulImport();
+        expectSuccess();
     }
 
     @Test

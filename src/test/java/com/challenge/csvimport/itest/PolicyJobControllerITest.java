@@ -50,7 +50,7 @@ class PolicyJobControllerITest extends AbstractITestJobController<Policy> {
 
         mockMultipartFiles.add(multipartFileFirst);
         mockMultipartFiles.add(multipartFileSecond);
-        successfulImport();
+        expectSuccess();
     }
 
     @Test
