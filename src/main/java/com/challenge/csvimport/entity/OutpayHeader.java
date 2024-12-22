@@ -13,7 +13,6 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "OutPay_Header")
 public class OutpayHeader {
-
     @EqualsAndHashCode.Exclude
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_outpay_header")

@@ -1,4 +1,4 @@
-package com.challenge.csvimport.controller;
+package com.challenge.csvimport.controller.job;
 
 import com.challenge.csvimport.service.ImportService;
 import lombok.extern.slf4j.Slf4j;
@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/api/job/policy")
+@RequestMapping("/api/job/redemption")
 @ResponseBody
 @Slf4j
-public class PolicyJobController extends JobController {
+public class RedemptionJobController extends JobController {
 
     @Autowired
-    public PolicyJobController(ImportService policyImportService, String policyFileNamePattern) {
-        super(policyImportService, policyFileNamePattern);
+    public RedemptionJobController(ImportService redemptionImportService, String redemptionFileNamePattern) {
+        super(redemptionImportService, redemptionFileNamePattern);
     }
 }

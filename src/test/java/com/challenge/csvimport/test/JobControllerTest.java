@@ -1,7 +1,7 @@
 package com.challenge.csvimport.test;
 
-import com.challenge.csvimport.controller.JobController;
-import com.challenge.csvimport.controller.PolicyJobController;
+import com.challenge.csvimport.controller.job.JobController;
+import com.challenge.csvimport.controller.job.PolicyJobController;
 import com.challenge.csvimport.service.ImportService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

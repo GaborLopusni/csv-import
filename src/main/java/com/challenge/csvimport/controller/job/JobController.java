@@ -1,4 +1,4 @@
-package com.challenge.csvimport.controller;
+package com.challenge.csvimport.controller.job;
 
 import com.challenge.csvimport.controller.exception.CsvImportRuntimeException;
 import com.challenge.csvimport.controller.exception.InvalidFileNamesException;
